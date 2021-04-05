@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Vue.js First Demo</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h1>{{ message }}</h1>
+            <ul>
+                <li v-for="todo in todos">
+                    {{ todo.text }}
+                </li>
+            </ul>
+
+        </div>
+        <p>
+            <button onclick="myFunction()">Click Me!</button>
+        </p>
+    </body>
+    <script>
+        var myObject = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!',
+                todos: [
+                    { text: 'Learn JavaScript' },
+                    { text: 'Learn Vue.js' },
+                    { text: 'Build Something Awesome' }
+                ]
+            }
+        });
+        function myFunction() {
+            myObject.message = "Welcome Ashish";
+        }
+    </script>
+</html>
