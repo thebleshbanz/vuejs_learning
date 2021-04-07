@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Vue.js First Demo</title>
+        <title>Vue.js-lifecycle hooks</title>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     </head>
     <body>
@@ -11,26 +11,40 @@
                     {{ todo.text }}
                 </li>
             </ul>
-
+            <span v-if="seen">Now you see me</span>
         </div>
-        <p>
-            <button onclick="myFunction()">Click Me!</button>
-        </p>
     </body>
     <script>
         var myObject = new Vue({
             el: '#app',
             data: {
                 message: 'Hello Vue!',
+                seen: true,
                 todos: [
                     { text: 'Learn JavaScript' },
                     { text: 'Learn Vue.js' },
                     { text: 'Build Something Awesome' }
                 ]
+            },
+            // lifecycle hooks
+            beforeCreate(){
+                alert('beforeCreate');
+            },
+            created(){
+                alert('created');
+            },
+            beforeMount(){
+                alert('beforeMount');
+            },
+            mounted(){
+                alert('Mounted');
+            },
+            beforeUpdate(){
+                alert('beforeUpdate');
+            },
+            updated(){
+                alert('updated');
             }
         });
-        function myFunction() {
-            myObject.message = "Welcome Ashish";
-        }
     </script>
 </html>

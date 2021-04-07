@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <title>Vue.js - Vue Instance</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h1>{{ message }}</h1>
+            <h3>{{ a }}</h3>
+            <h3>{{ b }}</h3>
+        </div>
+        <hr>
+            <h3>Instance Lifecycle Hooks Example 1</h3>
+        <div id="app-1">
+            <ol>
+                <li v-for="todo in todos">
+                    {{ todo.text }}
+                </li>
+            </ol>
+        </div>
+        <hr>
+            <h3>Instance Lifecycle Hooks Example 2</h3>
+        <div id="app-2">
+            
+        </div>
+    </body>
+</html>
+<script>
+    // our data object
+    var data = { a: 1 , message: 'Vue.js Instance!'};
+    // the object is added to a vue instance!
+    var vm = new Vue({
+        el: '#app',
+        data: data
+    });
+
+    // Getting the property on the instance
+    // returns the one from the original data
+    console.log(vm.a == data.a) // => true
+
+    // Setting the property on the instance
+    // also affects the original data
+    vm.a = 2
+    console.log(data.a) // => 2
+
+    // add a vice-versa
+    data.a = 3;
+    console.log(vm.a) // => 3
+
+    vm.b = 'hi';
+    // Instance Lifecycle Hooks Example 1
+    var app1 = new Vue({
+        el : '#app-1',
+        data : {
+            todos : [
+                { 'text' : 'set up data observation' },
+                { 'text' : 'compile the template' },
+                { 'text' : 'mount the instance to the DOM' },
+                { 'text' : 'update the DOM when the data changes' },
+                { 'text' : 'Created' },
+                { 'text' : 'Mounted' },
+                { 'text' : 'Updated' },
+                { 'text' : 'destroyed' },
+            ]
+        }
+    });
+
+    // Instance Lifecycle Hooks Example 2
+
+    var vm = new Vue({
+        data : {
+            a : 1
+        },
+        created : function () {
+            // `this` points to the vm instance
+            console.log('a is: ' + this.a);
+        }
+    });
+    // => "a is: 1"
+
+</script>

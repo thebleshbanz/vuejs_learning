@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Form Input Bindings</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+</head>
+<body>
+	<!-- Text -->
+	<div id="app">
+		<h3>Basic Usage : Text</h3>
+		<input v-model="user_name" type="text" name="user_name">
+		<p>User Name is : {{ user_name }} </p>
+	</div>
+	<hr>
+	<!-- MultiLine Text -->
+	<div id="example-textarea">
+		<h3>Basic Usage : Multiline text</h3>
+		<span>Multiline Message is :</span>
+		<p style="white-space: pre-line;">{{ message }}</p>
+		<br>
+		<textarea v-model="message" placeholder="add multiple lines here"></textarea>
+	</div>
+	<hr>
+	<!-- Checkbox -->
+	<div id="example-checkbox">
+		<h3>Basic Usage : Checkbox</h3>
+		<input type="checkbox" id="checkbox" v-model="checked">
+		<label for="checkbox">{{ checked }}</label>
+	</div>
+	<script>
+		new Vue({
+			el: '#example-checkbox',
+			data: {
+				checked: false
+			}
+		})
+	</script>
+	<hr>
+	<!-- Checkbox -->
+	<div id="multiple-checkbox" class="demo">
+		<h3>Multiple checkboxes, bound to the same Array:</h3>
+		<!-- User Name 1 -->
+		<input type="checkbox" id="blesh" value="Blesh" v-model="checkedNames">
+		<label for="blesh">Blesh</label>
+		<!-- User Name 2 -->
+		<input type="checkbox" id="banz" value="Banz" v-model="checkedNames">
+		<label for="banz">Banz</label>
+		<!-- User Name 1 -->
+		<input type="checkbox" id="abdur" value="Abdur" v-model="checkedNames">
+		<label for="abdur">Abdur</label>
+		<!-- User Name 1 -->
+		<input type="checkbox" id="mahak" value="Mahak" v-model="checkedNames">
+		<label for="mahak">Mahak</label>
+		<!-- User Name 1 -->
+		<input type="checkbox" id="adarsh" value="Adarsh" v-model="checkedNames">
+		<label for="adarsh">Adarsh</label>
+		<br>
+		<span>Checked Names : {{ checkedNames }}</span>
+	</div>
+	<script>
+		new Vue({
+			el: '#multiple-checkbox',
+			data: {
+				checkedNames: []
+			}
+		})
+	</script>
+	<hr>
+	<!-- Radio -->
+	<div id="example-radio">
+		<h3>Basic Usage : Radio</h3>
+		<input type="radio" id="one" value="One" v-model="picked">
+		<label for="one">One</label>
+		<br>
+		<input type="radio" id="two" value="Two" v-model="picked">
+		<label for="two">Two</label>
+		<br>
+		<span>Picked : {{ picked }}</span>
+	</div>
+	<script>
+		new Vue({
+			el: '#example-radio',
+			data: {
+				picked: ''
+			}
+		})
+	</script>
+	<hr>
+	<!-- Select -->
+	<div id="example-select">
+		<h3>Basic Usage : Single Select</h3>
+		<select v-model="selected">
+			<option disabled value="">please select any one</option>
+			<option>A</option>
+			<option>B</option>
+			<option>C</option>
+			<option>D</option>
+		</select>
+		<span>Selected : {{ selected }}</span>
+	</div>
+	<script>
+		new Vue({
+			el: '#example-select',
+			data: {
+				selected: ''
+			}
+		})
+	</script>
+	<hr>
+	<!-- Multiple Select -->
+	<div id="multiple-select">
+		<h3>Basic Usage : Multiple Select</h3>
+		<select v-model="selected" multiple>
+			<option disabled value="">please select any one</option>
+			<option>A</option>
+			<option>B</option>
+			<option>C</option>
+			<option>D</option>
+		</select>
+		<span>Selected : {{ selected }}</span>
+	</div>
+	<script>
+		new Vue({
+			el: '#multiple-select',
+			data: {
+				selected: []
+			}
+		})
+	</script>
+	<hr>
+	<!-- Dynamic options rendered -->
+	<div id="dynamic-options">
+		<h3>Basic Usage : Dynamic Options rendered</h3>
+		<select v-model="selected">
+			<option v-for="option in options" v-bind:value="option.value" >
+				{{ option.text }}
+			</option>
+		</select>
+		<span>Selected : {{ selected }}</span>
+	</div>
+	<script>
+		new Vue({
+			el: '#dynamic-options',
+			data: {
+				selected: 'A',
+				options : [
+					{ text: 'One', value: 'A'},
+					{ text: 'Two', value: 'B'},
+					{ text: 'Three', value: 'C'},
+					{ text: 'Four', value: 'D'},
+					{ text: 'Five', value: 'E'},
+				]
+			}
+		})
+	</script>
+	<hr>
+	<!-- Dynamic options rendered with multiple select -->
+	<div id="dynamic-options-multi">
+		<h3>Basic Usage : Dynamic Options rendered with multiple select</h3>
+		<select v-model="selected" multiple >
+			<option v-for="option in options" v-bind:value="option.value" >
+				{{ option.text }}
+			</option>
+		</select>
+		<span>Selected : {{ selected }}</span>
+	</div>
+	<script>
+		new Vue({
+			el: '#dynamic-options-multi',
+			data: {
+				selected: ['A', 'B'],
+				options : [
+					{ text: 'One', value: 'A'},
+					{ text: 'Two', value: 'B'},
+					{ text: 'Three', value: 'C'},
+					{ text: 'Four', value: 'D'},
+					{ text: 'Five', value: 'E'},
+				]
+			}
+		})
+	</script>
+	<hr>
+</body>
+</html>
+<script type="text/javascript">
+	// Basic Usage : Text
+	var vue = new Vue({
+		el: '#app',
+		data: {
+			user_name: 'Ashish Banjare'
+		}
+	});
+	// Basic Usage : Multiline Text
+	var vue = new Vue({
+		el: '#app-2',
+		data: {
+			user_name: 'Ashish Banjare'
+		}
+	});
+	new Vue({
+		el: '#example-textarea',
+		data: {
+			message: ''
+		}
+	})
+</script>

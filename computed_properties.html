@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue.js- Computed Properties</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+</head>
+<body>
+	<hr>
+		<h3>Computed Properties</h3>
+		<div id="app-1">
+            <p>Original message: {{ message }}</p>
+            <!-- <p>Reverse  : {{ message.split('').reverse().join('') }}</p> -->
+            <p>Computed Reverse message: {{ reversedMessage }}</p>
+        </div>
+    <hr>
+		<h3>Computed Caching vs Methods</h3>
+		<div id="app-2">
+            <p>Computed Caching Time: {{ time_now }}</p>
+        </div>
+	<hr>
+
+</body>
+</html>
+
+<script type="text/javascript">
+	//  Handling User Input Example 5
+    var vm = new Vue({
+        el : '#app-1',
+        data : {
+            message : "Hello!"
+        },
+        computed : {
+        	// a computed getter
+        	reversedMessage : function () {
+        		return this.message.split('').reverse().join('');
+        	}
+        }
+    });
+	//  Handling User Input Example 5
+    var vm = new Vue({
+        el : '#app-2',
+        computed : {
+        	// a computed getter
+        	time_now : function () {
+        		return Date.now();
+        	}
+        }
+    });
+	console.log(vm.message) // => 'Hello!'
+    console.log(vm.reversedMessage) // => 'olleH'
+	vm.message = 'Goodbye'
+	console.log(vm.message) // => 'Goodbye'
+	console.log(vm.reversedMessage) // => 'eybdooG'
+</script>
