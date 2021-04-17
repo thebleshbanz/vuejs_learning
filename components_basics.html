@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Components</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+</head>
+<body>
+	<h3>Components Basics Example 1</h3>
+	<div id="components-example-1">
+		<button-counter></button-counter>
+	</div>
+	<hr>
+	<h3>Reusing Components Example 2</h3>
+	<div id="components-example-2">
+		<button-counter></button-counter>
+		<button-counter></button-counter>
+		<button-counter></button-counter>
+		<button-counter></button-counter>
+		<button-counter></button-counter>
+	</div>
+	<hr>
+	<h3>Reusing Components on the same instance Example 3</h3>
+	<div id="components-example-3">
+		<button-counter-2></button-counter-2>
+		<button-counter-2></button-counter-2>
+		<button-counter-2></button-counter-2>
+		<button-counter-2></button-counter-2>
+		<button-counter-2></button-counter-2>
+	</div>
+	<hr>
+	<h3>Child Components with Props</h3>
+	<div id="blog-post-demo">
+		<div :style="{ fontSize : postFontSize + 'em' }">
+			<blog-post
+				v-for="post in posts"
+				v-bind:key="post.id"
+				v-bind:post="post"
+				v-on:enlarge-text="postFontSize += 0.1"
+			></blog-post>
+		</div>
+	</div>
+	<hr>
+	<h3>Dynamic Components</h3>
+	<div id="dynamic-component-demo" class="demo">
+		<button class="dynamic-component-demo-tab-button">Home</button>
+		<button class="dynamic-component-demo-tab-button">Posts</button>
+		<button class="dynamic-component-demo-tab-button dynamic-component-demo-tab-button-active">Archive</button>
+		<div class="dynamic-component-demo-tab">Archive component</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	var buttonCounter2Data = {
+		count : 0
+	}
+	// Component Example 1
+	Vue.component('button-counter', {
+		data : function () {
+			return {
+				count : 0
+			}
+			// return buttonCounter2Data;
+		},
+		template : '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+	})
+	// Component Example 2
+	Vue.component('button-counter-2', {
+		data : function () {
+			return buttonCounter2Data;
+		},
+		template : '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+	})
+	// Child Components with Props
+	Vue.component('blog-post', {
+		props : ['post'],
+		template :
+		`<div class="blog-post">
+			<h3>{{ post.title }}</h3>
+			<button v-on:click="$emit('enlarge-text')">
+				Enlarge text
+			</button>
+			<div v-html="post.description"></div>
+		</div>`
+	})
+
+	var app = new Vue({
+		el : "#components-example-1"
+	})
+
+	var app2 = new Vue({
+		el : "#components-example-2"
+	})
+
+	var app3 = new Vue({
+		el : "#components-example-3"
+	})
+
+	var app4 = new Vue({
+		el : "#blog-post-demo",
+		data : {
+			posts : [
+				{id: 1, title: 'mattis rhoncus urna neque viverra', description : 'a condimentum vitae sapien pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas sed tempus urna et pharetra pharetra massa massa ultricies mi quis hendrerit dolor'},
+				{id: 2, title: 'amet volutpat consequat mauris nunc', description : 'id ornare arcu odio ut sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum est ultricies integer quis auctor elit sed vulputate mi sit amet mauris commodo quis imperdiet'},
+				{id: 3, title: 'condimentum lacinia quis vel eros', description : 'urna porttitor rhoncus dolor purus non enim praesent elementum facilisis leo vel fringilla est ullamcorper eget nulla facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in ornare'},
+				{id: 4, title: 'nisi lacus sed viverra tellus', description : 'morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius'},
+				{id: 5, title: 'adipiscing diam donec adipiscing tristique', description : 'cursus metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper eget duis at tellus at urna condimentum mattis'},
+			],
+			postFontSize: 1,
+		}
+	});
+
+	Vue.component('tab-home', { template: '<div>Home component</div>' })
+	Vue.component('tab-posts', { template: '<div>Posts component</div>' })
+	Vue.component('tab-archive', { template: '<div>Archive component</div>' })
+	var app5 = new Vue({
+		el: '#dynamic-component-demo',
+		data: {
+			currentTab: 'Home',
+			tabs: ['Home', 'Posts', 'Archive']
+		},
+		computed: {
+			currentTabComponent: function () {
+				return 'tab-' + this.currentTab.toLowerCase()
+			}
+		}
+	})
+</script>
