@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Components</title>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 </head>
+
 <body>
 	<h3>Components Basics Example 1</h3>
 	<div id="components-example-1">
@@ -31,12 +33,8 @@
 	<h3>Child Components with Props</h3>
 	<div id="blog-post-demo">
 		<div :style="{ fontSize : postFontSize + 'em' }">
-			<blog-post
-				v-for="post in posts"
-				v-bind:key="post.id"
-				v-bind:post="post"
-				v-on:enlarge-text="postFontSize += 0.1"
-			></blog-post>
+			<blog-post v-for="post in posts" v-bind:key="post.id" v-bind:post="post"
+				v-on:enlarge-text="postFontSize += 0.1"></blog-post>
 		</div>
 	</div>
 	<hr>
@@ -47,34 +45,73 @@
 		<button class="dynamic-component-demo-tab-button dynamic-component-demo-tab-button-active">Archive</button>
 		<div class="dynamic-component-demo-tab">Archive component</div>
 	</div>
+	<hr>
+	<h3>Passing data to child component with props as Title</h3>
+	<div id="component-props-1" class="demo">
+		<!-- component template list  -->
+		<blog-post-1 title="My journey with Vue"></blog-post-1>
+		<blog-post-1 title="Blogging with Vue"></blog-post-1>
+		<blog-post-1 title="Why Vue is so fun"></blog-post-1>
+	</div>
+	</div>
+	<hr>
+	<h3>Passing data to child component with props as Array</h3>
+	<div id="component-props-2" class="demo">
+		<!-- component template list  -->
+		<blog-post-2 v-for="post in posts" v-bind:key="post.id" v-bind:title="post.title"></blog-post-2>
+	</div>
+	<hr>
+	<h3>Passing data to child component with props as Title And Content</h3><p>Example 3</p>
+	<div id="component-props-3" class="demo">
+		<!-- component template list Example 3 -->
+		<blog-post-3 
+			v-for="post in posts" 
+			v-bind:key="post.id" 
+			v-bind:title="post.title" 
+			v-bind:content="post.content"
+		></blog-post-3>
+	</div>
+	</div>
+	<hr>
+	<h3>Passing data to child component with single post prop</h3>
+	<div id="component-props-4" class="demo">
+		<!-- component template list Example 3 -->
+		<blog-post-4
+			v-for="post in posts"
+			v-bind:key="post.id"
+			v-bind:post="post"
+		></blog-post-4>
+	</div>
+	<!-- Using v-model on Components -->
 </body>
+
 </html>
 <script type="text/javascript">
-	var buttonCounter2Data = {
-		count : 0
-	}
 	// Component Example 1
 	Vue.component('button-counter', {
-		data : function () {
+		data: function () {
 			return {
-				count : 0
+				count: 0
 			}
 			// return buttonCounter2Data;
 		},
-		template : '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+		template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
 	})
 	// Component Example 2
+	var buttonCounter2Data = {
+		count: 0
+	}
 	Vue.component('button-counter-2', {
-		data : function () {
+		data: function () {
 			return buttonCounter2Data;
 		},
-		template : '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+		template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
 	})
 	// Child Components with Props
 	Vue.component('blog-post', {
-		props : ['post'],
-		template :
-		`<div class="blog-post">
+		props: ['post'],
+		template:
+			`<div class="blog-post">
 			<h3>{{ post.title }}</h3>
 			<button v-on:click="$emit('enlarge-text')">
 				Enlarge text
@@ -84,26 +121,26 @@
 	})
 
 	var app = new Vue({
-		el : "#components-example-1"
+		el: "#components-example-1"
 	})
 
 	var app2 = new Vue({
-		el : "#components-example-2"
+		el: "#components-example-2"
 	})
 
 	var app3 = new Vue({
-		el : "#components-example-3"
+		el: "#components-example-3"
 	})
 
 	var app4 = new Vue({
-		el : "#blog-post-demo",
-		data : {
-			posts : [
-				{id: 1, title: 'mattis rhoncus urna neque viverra', description : 'a condimentum vitae sapien pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas sed tempus urna et pharetra pharetra massa massa ultricies mi quis hendrerit dolor'},
-				{id: 2, title: 'amet volutpat consequat mauris nunc', description : 'id ornare arcu odio ut sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum est ultricies integer quis auctor elit sed vulputate mi sit amet mauris commodo quis imperdiet'},
-				{id: 3, title: 'condimentum lacinia quis vel eros', description : 'urna porttitor rhoncus dolor purus non enim praesent elementum facilisis leo vel fringilla est ullamcorper eget nulla facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in ornare'},
-				{id: 4, title: 'nisi lacus sed viverra tellus', description : 'morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius'},
-				{id: 5, title: 'adipiscing diam donec adipiscing tristique', description : 'cursus metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper eget duis at tellus at urna condimentum mattis'},
+		el: "#blog-post-demo",
+		data: {
+			posts: [
+				{ id: 1, title: 'mattis rhoncus urna neque viverra', description: 'a condimentum vitae sapien pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas sed tempus urna et pharetra pharetra massa massa ultricies mi quis hendrerit dolor' },
+				{ id: 2, title: 'amet volutpat consequat mauris nunc', description: 'id ornare arcu odio ut sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum est ultricies integer quis auctor elit sed vulputate mi sit amet mauris commodo quis imperdiet' },
+				{ id: 3, title: 'condimentum lacinia quis vel eros', description: 'urna porttitor rhoncus dolor purus non enim praesent elementum facilisis leo vel fringilla est ullamcorper eget nulla facilisi etiam dignissim diam quis enim lobortis scelerisque fermentum dui faucibus in ornare' },
+				{ id: 4, title: 'nisi lacus sed viverra tellus', description: 'morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius' },
+				{ id: 5, title: 'adipiscing diam donec adipiscing tristique', description: 'cursus metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper eget duis at tellus at urna condimentum mattis' },
 			],
 			postFontSize: 1,
 		}
@@ -124,4 +161,72 @@
 			}
 		}
 	})
+
+	// Passing data to child components with props title
+	Vue.component('blog-post-1', {
+		props: ['title'],
+		template: '<h3>{{ title }}</h3>'
+	})
+	new Vue({ el: '#component-props-1' })
+
+	// Passing data to child components with props Array
+	Vue.component('blog-post-2', {
+		props: ['title'],
+		template: '<h3>{{ title }}</h3>'
+	})
+	new Vue({
+		el: '#component-props-2',
+		data: {
+			posts: [
+				{ id: 1, title: 'My Journey with Vue.js' },
+				{ id: 2, title: 'Bloging with Vue.js' },
+				{ id: 3, title: 'Why Vue.js is so fun' },
+			]
+		}
+	});
+	new Vue({ el: '#component-props-1' })
+
+	// Passing data to child components with props Array of Title and Content
+	Vue.component('blog-post-3', {
+		props: ['title', 'content'],
+		template: `
+			<div class="blog-post">
+				<h3>{{ title }}</h3>
+				<div v-html="content"></div>
+			</div>
+		`
+	})
+	new Vue({
+		el: '#component-props-3',
+		data: {
+			posts: [
+				{ id: 1, title: 'My Journey with Vue.js', content: 'suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla', },
+				{ id: 2, title: 'Bloging with Vue.js', content: 'suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla', },
+				{ id: 3, title: 'Why Vue.js is so fun', content: 'suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla', },
+			]
+		}
+	});
+	new Vue({ el: '#component-props-1' })
+
+	// Passing data to child components with single post prop
+	Vue.component('blog-post-4', {
+		props: ['post'],
+		template: `
+			<div class="blog-post">
+				<h3>{{ post.title }}</h3>
+				<div v-html="post.content"></div>
+			</div>
+		`
+	})
+	new Vue({
+		el: '#component-props-4',
+		data: {
+			posts: [
+				{ id: 1, title: 'My Journey with Vue.js', content: 'suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla', },
+				{ id: 2, title: 'Bloging with Vue.js', content: 'suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla', },
+				{ id: 3, title: 'Why Vue.js is so fun', content: 'suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla', },
+			]
+		}
+	});
+
 </script>
