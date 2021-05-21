@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Props</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <style>
+        body{
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h3>Props Casing Example 1</h3>
+    <div id="prop-casing" >
+        <blog-post post-title="hello!"></blog-post>
+    </div>
+    <hr>
+<body>
+    <h3>Props Types Example 2</h3>
+    <div id="prop-types" >
+        <!-- props passed static value -->
+        <p>props passed static value</p>
+        <blog-post-2 title="My journey with Vue"></blog-post-2>
+        <!-- Dynamically assign the value of a variable -->
+        <p>Dynamically assign the value of a variable</p>
+        <blog-post-2 v-bind:title="post.title"></blog-post-2>
+        <!-- Passing a Number Static -->
+        <p>Passing a Number Static</p>
+        <blog-post-2 v-bind:likes="42"></blog-post-2>
+        <!-- Passing a Number dynamic -->
+        <p>Passing a Number Dynamic</p>
+        <blog-post-2 v-bind:likes="post.likes"></blog-post-2>
+        <p>Passing an Array</p>
+        <!-- Even though the array is static, we need v-bind to tell Vue that -->
+        <!-- this is a JavaScript expression rather than a string.            -->
+        <blog-post-2 v-bind:comment-ids="[234, 266, 273]"></blog-post-2>
+        
+        <!-- Dynamically assign to the value of a variable. -->
+        <blog-post-2 v-bind:comment-ids="post.commentIds"></blog-post-2>
+    </div>
+    <hr>
+
+    <h2>One-Way Data Flow</h2>
+    <div id="prop-one-way-data">
+
+    </div>
+    <hr>
+</body>
+</html>
+<script>
+    /* Component Prop Casing */
+    Vue.component('blog-post', {
+        // camelCase in JavaScript
+        props: ['postTitle'],
+        template: '<h3>{{ postTitle }}</h3>'
+    })
+    new Vue({
+        el: "#prop-casing"
+    })
+    /* Component Prop Types */
+    Vue.component('blog-post-2', {
+        props: {
+            title: String,
+            likes: Number,
+            isPublished: Boolean,
+            commentIds: Array,
+            author: Object,
+            callback: Function,
+            contactsPromise: Promise // or any other constructor
+        },
+        template: '<h3>{{ commentIds }}</h3>',
+    })
+    new Vue({ 
+        el: '#prop-types',
+        data: {
+            post : {
+                title: 'Welcome to the Vue.js World',
+                likes: 214,
+                isPublished: 'false',
+                commentIds: ['1', '3', '54', '2', '53'],
+                author: {
+                    name: "Evan You",
+                    found: 2014,
+                    mobile: '1234567890',
+                    address: "Livingston, New Jersey, United States",
+                },
+                callback: function () {
+                    return "thish is call back function";
+                },
+            }
+        }
+    })
+// one-way data flow
+    new Vue({
+        el : '#prop-one-way-data',
+    })
+
+</script>

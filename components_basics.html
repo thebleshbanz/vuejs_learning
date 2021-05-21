@@ -61,28 +61,55 @@
 		<blog-post-2 v-for="post in posts" v-bind:key="post.id" v-bind:title="post.title"></blog-post-2>
 	</div>
 	<hr>
-	<h3>Passing data to child component with props as Title And Content</h3><p>Example 3</p>
+	<h3>Passing data to child component with props as Title And Content</h3>
+	<p>Example 3</p>
 	<div id="component-props-3" class="demo">
 		<!-- component template list Example 3 -->
-		<blog-post-3 
-			v-for="post in posts" 
-			v-bind:key="post.id" 
-			v-bind:title="post.title" 
-			v-bind:content="post.content"
-		></blog-post-3>
+		<blog-post-3 v-for="post in posts" v-bind:key="post.id" v-bind:title="post.title" v-bind:content="post.content">
+		</blog-post-3>
 	</div>
 	</div>
 	<hr>
 	<h3>Passing data to child component with single post prop</h3>
 	<div id="component-props-4" class="demo">
 		<!-- component template list Example 3 -->
-		<blog-post-4
-			v-for="post in posts"
-			v-bind:key="post.id"
-			v-bind:post="post"
-		></blog-post-4>
+		<blog-post-4 v-for="post in posts" v-bind:key="post.id" v-bind:post="post"></blog-post-4>
 	</div>
 	<!-- Using v-model on Components -->
+	<hr>
+	<h3>Using v-model on Components</h3>
+	<div id="component-v_model-1" class="demo">
+		<custom-input
+			v-bind:value="searchText"
+			v-on:input="searchText = $event"
+		></custom-input>		
+	</div>
+	<!-- content disctributions with slots -->
+	<hr>
+	<h3>content disctributions with slots</h3>
+	<div id="component-slots-1">
+		<alert-box>
+			Something bad happened.
+		</alert-box>
+		<alert-box>
+			Something went wrong.
+		</alert-box>
+		</alert-box>
+		<alert-box>
+			Data not foung.
+		</alert-box>
+	</div>
+	<!-- Dynamic-Components -->
+	<hr>
+	<h3>Dynamic-Components Example 2</h3>
+	<div id="dynamic-component-demo2">
+		<!-- Component changes when currentTabComponent changes -->
+		<button v-for="tab in tabs" v-bind:key="tab" class="dynamic-component-demo-tab-button"
+			v-bind:class="{ 'dynamic-component-demo-tab-button-active': tab === currentTab }" v-on:click="currentTab = tab">
+			{{ tab }}
+		</button>
+		<component v-bind:is="currentTabComponent" class="dynamic-component-demo-tab"></component>
+	</div>
 </body>
 
 </html>
@@ -149,6 +176,7 @@
 	Vue.component('tab-home', { template: '<div>Home component</div>' })
 	Vue.component('tab-posts', { template: '<div>Posts component</div>' })
 	Vue.component('tab-archive', { template: '<div>Archive component</div>' })
+
 	var app5 = new Vue({
 		el: '#dynamic-component-demo',
 		data: {
@@ -228,5 +256,70 @@
 			]
 		}
 	});
-
+	// Using v - model on Components
+	Vue.component('custom-input', {
+		props : ['value'],
+		template : `
+			<input
+				v-bind:value="value",
+				v-on:input="$emit('input', $event.target.value)"
+			>
+		`
+	});
+	new Vue({
+		el: '#component-v_model-1',
+	});
+	// content disctributions with slots
+	Vue.component('alert-box', {
+		template : `
+			<div class="demo-alert-box">
+				<strong>Error!</strong>
+				<slot></slot>
+			</div>
+		`
+	});	
+	new Vue({ el: '#component-slots-1' })
+	// Dynamic Component
+	Vue.component('tab-home', { template: '<div>Home component</div>' })
+	Vue.component('tab-posts', { template: '<div>Posts component</div>' })
+	Vue.component('tab-archive', { template: '<div>Archive component</div>' })
+	new Vue({
+		el: '#dynamic-component-demo2',
+		data: {
+			currentTab: 'Home',
+			tabs: ['Home', 'Posts', 'Archive']
+		},
+		computed: {
+			currentTabComponent: function () {
+				return 'tab-' + this.currentTab.toLowerCase()
+			}
+		}
+	})
 </script>
+<style>
+	.demo-alert-box {
+		padding: 10px 20px;
+		background: #f3beb8;
+		border: 1px solid #f09898;
+	}
+	.dynamic-component-demo-tab-button {
+		padding: 6px 10px;
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+		border: 1px solid #ccc;
+		cursor: pointer;
+		background: #f0f0f0;
+		margin-bottom: -1px;
+		margin-right: -1px;
+	}
+	.dynamic-component-demo-tab-button:hover {
+		background: #e0e0e0;
+	}
+	.dynamic-component-demo-tab-button-active {
+		background: #e0e0e0;
+	}
+	.dynamic-component-demo-tab {
+		border: 1px solid #ccc;
+		padding: 10px;
+	}
+</style>
