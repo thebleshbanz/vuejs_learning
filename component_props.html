@@ -41,25 +41,7 @@
         <!-- Dynamically assign to the value of a variable. -->
         <blog-post-2 v-bind:comment-ids="post.commentIds"></blog-post-2>
     </div>
-    <hr>
-
-    <h2>One-Way Data Flow</h2>
-    <div id="prop-one-way-data">
-
-    </div>
-    <hr>
-</body>
-</html>
-<script>
-    /* Component Prop Casing */
-    Vue.component('blog-post', {
-        // camelCase in JavaScript
-        props: ['postTitle'],
-        template: '<h3>{{ postTitle }}</h3>'
-    })
-    new Vue({
-        el: "#prop-casing"
-    })
+    <script>
     /* Component Prop Types */
     Vue.component('blog-post-2', {
         props: {
