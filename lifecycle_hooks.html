@@ -24,26 +24,46 @@
                     { text: 'Learn JavaScript' },
                     { text: 'Learn Vue.js' },
                     { text: 'Build Something Awesome' }
-                ]
+                ],
+                aplha : 1,
+                myname : 'A',
             },
             // lifecycle hooks
             beforeCreate(){
-                alert('beforeCreate');
+                let ch = 'A';
+                this.myname = this.myname + ch;
+                console.log(this.myname);
+                console.log('aplha', (this.aplha-1));
             },
             created(){
-                alert('created');
+                let ch = 'S';
+                this.myname = this.myname + ch;
+                console.log(this.myname);
+                console.log('aplha', (this.aplha + 1));
             },
             beforeMount(){
-                alert('beforeMount');
+                let ch = 'H';
+                this.myname = this.myname + ch;
+                console.log(this.myname);
+                console.log('aplha', (this.aplha - 2));
             },
             mounted(){
-                alert('Mounted');
+                let ch = 'I';
+                this.myname = this.myname + ch;
+                console.log('aplha', (this.aplha + 2));
+                console.log(this.myname);
             },
             beforeUpdate(){
-                alert('beforeUpdate');
+                let ch = 'S';
+                this.myname = this.myname + ch;
+                console.log('aplha', (this.aplha - 1));
+                console.log(this.myname);
             },
             updated(){
-                alert('updated');
+                let ch = 'H';
+                this.myname = this.myname + ch;
+                console.log('aplha', (this.aplha + 2));
+                console.log(this.myname);
             }
         });
     </script>
